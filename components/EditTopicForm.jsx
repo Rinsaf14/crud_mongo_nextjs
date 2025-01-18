@@ -13,7 +13,7 @@ export default function EditTopicForm({ id, title, description }) {
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:3000/api/topics/${id}`, {
+      const res = await fetch(`/api/topics/${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -23,12 +23,13 @@ export default function EditTopicForm({ id, title, description }) {
       if (!res.ok) {
         throw new Error("Failed to update topic");
       }
-      router.refresh();
+      // Hanya arahkan pengguna ke halaman utama setelah berhasil
       router.push("/");
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <input
@@ -50,7 +51,7 @@ export default function EditTopicForm({ id, title, description }) {
         type="submit"
         className="bg-green-600 font-bold text-white py-3 px-6 w-fit"
       >
-        Add Topic
+        Update Topic
       </button>
     </form>
   );
